@@ -45,7 +45,22 @@
       color:var(--white)!important;
     }
     .nav-cta:hover{background:var(--orange);color:#111!important}
-    .menu{display:none;background:none;border:0;color:white;font-size:1.5rem}
+    .menu{
+      display:none;background:none;border:0;color:white;font-size:1.6rem;
+      cursor:pointer;width:44px;height:44px;border-radius:8px;
+      align-items:center;justify-content:center;transition:.2s
+    }
+    .menu:hover{background:rgba(255,255,255,.08);color:var(--orange)}
+    .nav-links.open{
+      display:flex;position:absolute;top:78px;left:4%;right:4%;
+      flex-direction:column;align-items:stretch;gap:0;padding:10px;
+      background:rgba(12,12,12,.98);border:1px solid var(--line);
+      border-radius:12px;box-shadow:0 18px 45px rgba(0,0,0,.45);
+      backdrop-filter:blur(12px)
+    }
+    .nav-links.open a{padding:14px 15px;border-radius:8px}
+    .nav-links.open a:hover{background:rgba(255,122,0,.08)}
+    .nav-links.open .nav-cta{text-align:center;margin-top:5px}
 
     /* HERO */
     .hero{
@@ -161,7 +176,7 @@
 
     @media(max-width:800px){
       .nav-links{display:none}
-      .menu{display:block}
+      .menu{display:flex}
       .hero{min-height:850px;padding-top:90px}
       .hero-grid,.about-grid{grid-template-columns:1fr;gap:30px}
       .hero-product{min-height:390px;order:-1}
@@ -290,8 +305,8 @@
       <h2>Ready for <span>better fire?</span></h2>
       <p>Tell us what you need and we'll help you find the right Liora charcoal supply for your home or business.</p>
       <div class="buttons" style="justify-content:center">
-        <a class="btn btn-primary" href="https://wa.me/256707549088">Order on WhatsApp</a>
-        <a class="btn btn-outline" href="tel:+256707549088">Call Liora</a>
+        <a class="btn btn-primary" href="https://wa.me/256700000000">Order on WhatsApp</a>
+        <a class="btn btn-outline" href="tel:+256700000000">Call Liora</a>
       </div>
     </div>
   </section>
@@ -310,8 +325,8 @@
       </div>
       <div>
         <h4>Contact</h4>
-        <a href="https://wa.me/256700000000">WhatsApp</a>
-        <a href="tel:+256700000000">+256 707 549 088</a>
+        <a href="https://wa.me/256707549088">WhatsApp</a>
+        <a href="tel:+2567007549088">+256 707 549 088</a>
         <a href="mailto:hello@liora.ug">hello@liora.ug</a>
       </div>
     </div>
@@ -320,6 +335,39 @@
       <span>Clean Fire, Better Living.</span>
     </div>
   </footer>
+
+
+  <script>
+    const menuButton = document.querySelector('.menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuButton.setAttribute('aria-expanded', 'false');
+
+    menuButton.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', open);
+      menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menuButton.textContent = open ? '✕' : '☰';
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open menu');
+        menuButton.textContent = '☰';
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 800) {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open menu');
+        menuButton.textContent = '☰';
+      }
+    });
+  </script>
 
 </body>
 </html>
